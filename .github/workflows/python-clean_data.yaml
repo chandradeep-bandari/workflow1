@@ -1,0 +1,34 @@
+name: Python Clean, Train & Test
+
+on:
+  workflow_dispatch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Set up Python 3.10
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      # Step 2: Checkout the code
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Step 3: Clean the data
+      - name: Run clean_data.py
+        run: |
+          pip install pandas
+          python ModelCleaning/clean_data.py
+
+      # Step 4: Train and test the model
+      - name: Run train_test_dataset.py
+        run: |
+          pip install scikit-learn joblib
+          python ModelCleaning/train_test_dataset.py
+
+
+
